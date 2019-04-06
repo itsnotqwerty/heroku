@@ -9,7 +9,7 @@ web.listen(PORT);
 
 bot.on('message', (message: discord.Message) => {
     console.log(message.content);
-    if !(message.mentions.members.first()) { return };
+    if (!message.mentions.members.first()) { return };
     if ('535523737156583444' == message.mentions.members.first().id) {
         message.channel.send('Fuck off!');
     }
