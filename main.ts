@@ -10,7 +10,7 @@ web.listen(PORT);
 bot.on('message', (message: discord.Message) => {
     console.log(message.content);
     console.log(message.mentions.members);
-    if ('109094301962625024' in messae.mentions.members) {
+    if ('109094301962625024' in message.mentions.members) {
         message.channel.send('Fuck off!');
     }
 });
