@@ -12,6 +12,30 @@ const expletives = [
     'Eat shit!',
     'Die in a fire!'
 ]
+const responses = [
+    'Not likely, shithead.',
+    'Go fuck yourself. Not gonna happen.',
+    'Ask me again later.',
+    'Maybe it\'ll happen if you ask for it nicer',
+    'Mmmmm, no.',
+    'It\'s *possible*',
+    'Sure, whatever.',
+    'I take no responsibility for what happens',
+    'lmao ok'
+]
+
+
+const commands = [
+    {
+        'trigger': '::8ball',
+        'response': (message: discord.Message) => {
+            if (!(message.content.length > 7)) {
+                return 'Ask a question, dumbass!';
+            }
+            return `Q: ${message.content.slice(7)} \nA: ${random(responses)}`;
+        }
+    }
+]
 
 function random(a: any[]): any {
     return a[Math.floor(Math.random() * a.length)];
@@ -20,11 +44,13 @@ function random(a: any[]): any {
 web.listen(PORT);
 
 bot.on('message', (message: discord.Message) => {
-    console.log(message.content);
-    if (!message.mentions.members.first()) { return };
-    if ('535523737156583444' == message.mentions.members.first().id) {
-        message.channel.send(random(expletives));
-    }
+    if (!message.content.startsWith('::')) { return };
+    commands.forEach(command => {
+        if (message.content.startsWith(command.trigger)) {
+            message.channel.send(command.response(message));
+        }
+    });
+    message.channel.send(random(expletives));
 });
 
 bot.on('error', (err: Error) => {
