@@ -2,9 +2,15 @@ import * as discord from 'discord.js';
 import express from 'express';
 import * as http from 'http';
 
+function random(a: any[]): any {
+    return a[Math.floor(Math.random() * a.length)];
+}
+
 const bot: discord.Client = new discord.Client();
 const web: express.Express = express();
 const PORT = process.env.PORT || 5000;
+
+web.listen(PORT);
 
 const expletives = [
     'Fuck off!',
@@ -20,7 +26,6 @@ const responses = [
     'Mmmmm, no.',
     'It\'s *possible*',
     'Sure, whatever.',
-    'I take no responsibility for what happens',
     'lmao yea',
     '*Maybe*',
     'Yes. The answer is undoubtedly yes.',
@@ -41,12 +46,6 @@ const commands = [
         }
     }
 ]
-
-function random(a: any[]): any {
-    return a[Math.floor(Math.random() * a.length)];
-}
-
-web.listen(PORT);
 
 bot.on('message', (message: discord.Message) => {
     if (!message.content.startsWith('::')) { return };
