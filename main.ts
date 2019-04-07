@@ -48,6 +48,7 @@ bot.on('message', (message: discord.Message) => {
     commands.forEach(command => {
         if (message.content.startsWith(command.trigger)) {
             message.channel.send(command.response(message));
+            return;
         }
     });
     message.channel.send(random(expletives));
