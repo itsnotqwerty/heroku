@@ -21,7 +21,12 @@ const responses = [
     'It\'s *possible*',
     'Sure, whatever.',
     'I take no responsibility for what happens',
-    'lmao ok'
+    'lmao ok',
+    '*Maybe*',
+    'Yes. The answer is undoubtedly yes.',
+    'One can hope.',
+    'Communism is gay, and so is that question.',
+    'Fuck off.'
 ]
 
 
