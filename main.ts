@@ -21,7 +21,7 @@ const responses = [
     'It\'s *possible*',
     'Sure, whatever.',
     'I take no responsibility for what happens',
-    'lmao ok',
+    'lmao yea',
     '*Maybe*',
     'Yes. The answer is undoubtedly yes.',
     'One can hope.',
@@ -66,5 +66,5 @@ bot.on('error', (err: Error) => {
 bot.login('NTM1NTIzNzM3MTU2NTgzNDQ0.XKgv4Q.VX4OvA-lsds1RYkvZBe-uidaTM4');
 
 setInterval(() => {
-    http.get("https://infinite-dusk-64948.herokuapp.com/");
+    http.get("http://infinite-dusk-64948.herokuapp.com/");
 }, 600000);
