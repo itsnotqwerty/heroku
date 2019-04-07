@@ -32,7 +32,7 @@ const commands = [
             if (!(message.content.length > 7)) {
                 return 'Ask a question, dumbass!';
             }
-            return `Q: ${message.content.slice(7)} \nA: ${random(responses)}`;
+            return `Q: ${message.content.slice(8)} \nA: ${random(responses)}`;
         }
     }
 ]
