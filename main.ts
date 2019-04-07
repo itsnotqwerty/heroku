@@ -19,5 +19,5 @@ bot.on('message', (message: discord.Message) => {
 bot.login('NTM1NTIzNzM3MTU2NTgzNDQ0.XKgv4Q.VX4OvA-lsds1RYkvZBe-uidaTM4');
 
 setInterval(() => {
-    http.get("https://infinite-dusk-64948.herokuapp.com/");
+    get("https://infinite-dusk-64948.herokuapp.com/");
 }, 600000);
