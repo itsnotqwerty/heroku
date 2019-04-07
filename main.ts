@@ -45,12 +45,12 @@ web.listen(PORT);
 
 bot.on('message', (message: discord.Message) => {
     if (!message.content.startsWith('::')) { return };
-    commands.forEach(command => {
+    for (let command of commands) {
         if (message.content.startsWith(command.trigger)) {
             message.channel.send(command.response(message));
             return;
         }
-    });
+    }
     message.channel.send(random(expletives));
 });
 
