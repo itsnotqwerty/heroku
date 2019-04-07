@@ -1,6 +1,6 @@
 import * as discord from 'discord.js';
 import express from 'express';
-import get from 'http';
+import * as http from 'http';
 
 const bot: discord.Client = new discord.Client();
 const web: express.Express = express();
@@ -19,5 +19,5 @@ bot.on('message', (message: discord.Message) => {
 bot.login('NTM1NTIzNzM3MTU2NTgzNDQ0.XKgv4Q.VX4OvA-lsds1RYkvZBe-uidaTM4');
 
 setInterval(() => {
-    get("https://infinite-dusk-64948.herokuapp.com/");
+    http.get("https://infinite-dusk-64948.herokuapp.com/");
 }, 600000);
