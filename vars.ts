@@ -1,3 +1,4 @@
+import { User } from './Entities/User';
 import { mongoCon } from './main';
 import * as discord from 'discord.js';
 
@@ -41,8 +42,8 @@ export const commands = [
     {
         'trigger': '::points',
         'response': async (message: discord.Message) => {
-            let userData = await mongoCon.findUser(message.author.id);
-            return `<@${message.author.id}> has ${userData.toArray()}`;
+            let userData: User = await mongoCon.findUser(message.author.id);
+            return `<@${message.author.id}> has ${userData.points}`;
         }
     }
 ]

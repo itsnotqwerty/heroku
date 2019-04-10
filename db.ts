@@ -24,7 +24,7 @@ export class MongoController {
     }
 
     findUser = async (user: string) => {
-        return await this.db.collection('users').find({
+        return await this.db.collection('users').findOne({
             username: user
         });
     }
