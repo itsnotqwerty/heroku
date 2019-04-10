@@ -13,7 +13,7 @@ web.listen(PORT);
 
 bot.on('message', async (message: discord.Message) => {
     let userData = await mongoCon.findUser(message.author.id);
-    if (await userData.count() == 0) {
+    if (userData == null) {
         await mongoCon.insertUser(message.author.id);
     }
     await mongoCon.addPoint(message.author.id);
