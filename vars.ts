@@ -43,7 +43,7 @@ export const commands = [
         'trigger': '::points',
         'response': async (message: discord.Message) => {
             let userData: User = await mongoCon.findUser(message.author.id);
-            return `<@${message.author.id}> has ${userData.points}`;
+            return `<@${message.author.id}> has ${userData.points} points`;
         }
     }
 ]
