@@ -19,18 +19,23 @@ var options = {
         username: "qbotv3",
         password: "oauth:l9vumzpgl7ok807gnuiyvs62kdmq9o"
     },
-    channels: [ "#ninjabunny9000" ]
+    channels: [ "#qerwtr546" ]
 }
-var client = twitch.client(options);
+var client: twitch.Client = twitch.client(options);
 
 client.on('message', async (channel: string, userstate: twitch.ChatUserstate, message: string, self: boolean) => {
+    console.log(message);
+    console.log("Received message!");
     if (self) { return };
+    console.log("Passed self check!");
     let userData = await mongoCon.findUser(String(userstate.username));
     if (userData == null) {
         await mongoCon.insertUser(String(userstate.username));
     }
+    console.log("Mongo stuff!");
     await mongoCon.addPoint(String(userstate.username));
     if (!message.startsWith('::')) { return };
+    console.log("Commands!");
     for (let command of v.commands) {
         if (message.startsWith(command.trigger)) {
             await client.say(channel, await command.response(userstate));
@@ -41,7 +46,7 @@ client.on('message', async (channel: string, userstate: twitch.ChatUserstate, me
 
 var init = async () => {
     await mongoCon.initTwitchDB();
-    client.connect();
+    await client.connect();
 }
 
 setInterval(() => {
