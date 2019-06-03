@@ -33,7 +33,7 @@ client.on('message', async (channel: string, userstate: twitch.ChatUserstate, me
     if (!message.startsWith('::')) { return };
     for (let command of v.commands) {
         if (message.startsWith(command.trigger)) {
-            await client.say(channel, await command.response(message));
+            await client.say(channel, await command.response(userstate));
             return;
         }
     }
