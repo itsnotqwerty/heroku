@@ -11,7 +11,7 @@ export const commands = [
         'trigger': '::points',
         'response': async (userstate: twitch.Userstate) => {
             let userData: User = await mongoCon.findUser(userstate.username);
-            return `<@${userstate.username}> has ${userData.points} points`;
+            return `@${userstate.username} has ${userData.points} points`;
         }
     }
 ]
