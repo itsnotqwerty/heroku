@@ -5,9 +5,9 @@ export class MongoController {
     cli!: MongoClient;
     db!: Db;
     
-    initTestDB = async () => {
+    initTwitchDB = async () => {
         this.cli = await MongoClient.connect(url, { useNewUrlParser: true });
-        this.db = this.cli.db('test');
+        this.db = this.cli.db('twitch');
     }
 
     insertUser = async (user: string) => {
