@@ -19,7 +19,7 @@ var options = {
         username: "qbotv3",
         password: "oauth:l9vumzpgl7ok807gnuiyvs62kdmq9o"
     },
-    channels: [ "#qerwtr546", "#ninjabunny9000" ]
+    channels: [ "#qerwtr546", "#ninjabunny9000", "#cmgriffing" ]
 }
 var client: twitch.Client = twitch.client(options);
 
@@ -34,7 +34,6 @@ client.on('message', async (channel: string, userstate: twitch.ChatUserstate, me
     for (let command of v.commands) {
         if (message.startsWith(command.trigger)) {
             await client.say(channel, await command.response(userstate));
-            console.log(message);
             return;
         }
     }
