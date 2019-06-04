@@ -33,12 +33,22 @@ export class MongoController {
         return await this.db.collection('users').find({});
     }
 
-    addPoint = async (user: string) => {
+    addPoints = async (user: string, inc: number) => {
         await this.db.collection('users').updateOne({
             username: user
         }, {
             '$inc': {
-                points: 1
+                points: inc
+            } 
+        })
+    }
+
+    setPoints = async (user: string, set: number) => {
+        await this.db.collection('users').updateOne({
+            username: user
+        }, {
+            '$set': {
+                points: set
             } 
         })
     }

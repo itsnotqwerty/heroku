@@ -1,4 +1,5 @@
-export interface User {
-    username: string;
-    points: number;
+export class User {
+    username!: string;
+    points!: number;
+    admin?: boolean;
 }

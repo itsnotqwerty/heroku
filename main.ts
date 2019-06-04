@@ -30,11 +30,11 @@ client.on('message', async (channel: string, userstate: twitch.ChatUserstate, me
     if (userData == null) {
         await mongoCon.insertUser(user);
     }
-    await mongoCon.addPoint(user);
+    await mongoCon.addPoints(user, 1);
     if (!message.startsWith('::')) { return };
     for (let command of v.commands) {
         if (message.startsWith(command.trigger)) {
-            await client.say(channel, await command.response(userstate));
+            await client.say(channel, await command.response(userstate, v.parseMessage(message)));
             return;
         }
     }
