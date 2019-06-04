@@ -19,7 +19,7 @@ var options = {
         username: "qbotv3",
         password: "oauth:l9vumzpgl7ok807gnuiyvs62kdmq9o"
     },
-    channels: [ "#qerwtr546", "kraslin", "ninjabunny9000", "cmgriffing"]
+    channels: [ "#qerwtr546", "kraslin", "ninjabunny9000", "cmgriffing", "#museun" ]
 }
 var client: twitch.Client = twitch.client(options);
 
