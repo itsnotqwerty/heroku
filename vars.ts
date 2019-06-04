@@ -24,8 +24,9 @@ export const commands = [
             let userSelf: User = await mongoCon.findUser(userstate.username);
             let userTarget: User = await mongoCon.findUser(args[1]);
             if (userSelf.admin != true) { return `@${userstate.username}, you don't have permission to use that!` };
+            if (args.length != 3) { return `@${userstate.username}, you're not using the command properly!` };
             if (userTarget == null) {
-                await mongoCon.insertUser(userTarget);
+                await mongoCon.insertUser(args[1]);
             }
             await mongoCon.setPoints(userTarget.username, parseInt(args[2]));
             return `@${userstate.username} now has ${parseInt(args[2])} points`;
@@ -37,8 +38,9 @@ export const commands = [
             let userSelf: User = await mongoCon.findUser(userstate.username);
             let userTarget: User = await mongoCon.findUser(args[1]);
             if (userSelf.admin != true) { return `@${userstate.username}, you don't have permission to use that!` };
+            if (args.length != 3) { return `@${userstate.username}, you're not using the command properly!` };
             if (userTarget == null) {
-                await mongoCon.insertUser(userTarget);
+                await mongoCon.insertUser(args[1]);
             }
             await mongoCon.addPoints(userTarget.username, parseInt(args[2]));
             return `@${userstate.username} now has ${parseInt(args[2])} points`;
@@ -50,8 +52,9 @@ export const commands = [
             let userSelf: User = await mongoCon.findUser(userstate.username);
             let userTarget: User = await mongoCon.findUser(args[1]);
             if (userSelf.admin != true) { return `@${userstate.username}, you don't have permission to use that!` };
+            if (args.length != 3) { return `@${userstate.username}, you're not using the command properly!` };
             if (userTarget == null) {
-                await mongoCon.insertUser(userTarget);
+                await mongoCon.insertUser(args[1]);
             }
             await mongoCon.subPoints(userTarget.username, parseInt(args[2]));
             return `@${userstate.username} now has ${parseInt(args[2])} points`;
