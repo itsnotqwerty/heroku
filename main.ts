@@ -25,11 +25,12 @@ var client: twitch.Client = twitch.client(options);
 
 client.on('message', async (channel: string, userstate: twitch.ChatUserstate, message: string, self: boolean) => {
     if (self) { return };
-    let userData = await mongoCon.findUser(String(userstate.username));
+    let user = String(userstate.username);
+    let userData = await mongoCon.findUser(user);
     if (userData == null) {
-        await mongoCon.insertUser(String(userstate.username));
+        await mongoCon.insertUser(user);
     }
-    await mongoCon.addPoint(String(userstate.username));
+    await mongoCon.addPoint(user);
     if (!message.startsWith('::')) { return };
     for (let command of v.commands) {
         if (message.startsWith(command.trigger)) {
