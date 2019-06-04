@@ -33,12 +33,12 @@ export class MongoController {
         return await this.db.collection('users').find({});
     }
 
-    addPoints = async (user: string, inc: number) => {
+    addPoints = async (user: string, add: number) => {
         await this.db.collection('users').updateOne({
             username: user
         }, {
             '$inc': {
-                points: inc
+                points: add
             } 
         })
     }
@@ -49,6 +49,16 @@ export class MongoController {
         }, {
             '$set': {
                 points: set
+            } 
+        })
+    }
+
+    subPoints = async (user: string, sub: number) => {
+        await this.db.collection('users').updateOne({
+            username: user
+        }, {
+            '$inc': {
+                points: -sub
             } 
         })
     }

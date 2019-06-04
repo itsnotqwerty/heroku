@@ -30,5 +30,31 @@ export const commands = [
             await mongoCon.setPoints(userTarget.username, parseInt(args[2]));
             return `@${userstate.username} now has ${parseInt(args[2])} points`;
         }
+    },
+    {
+        'trigger': '::addpoints',
+        'response': async (userstate: twitch.Userstate, args: Array<string>) => {
+            let userSelf: User = await mongoCon.findUser(userstate.username);
+            let userTarget: User = await mongoCon.findUser(args[1]);
+            if (userSelf.admin != true) { return `@${userstate.username}, you don't have permission to use that!` };
+            if (userTarget == null) {
+                await mongoCon.insertUser(userTarget);
+            }
+            await mongoCon.addPoints(userTarget.username, parseInt(args[2]));
+            return `@${userstate.username} now has ${parseInt(args[2])} points`;
+        }
+    },
+    {
+        'trigger': '::subpoints',
+        'response': async (userstate: twitch.Userstate, args: Array<string>) => {
+            let userSelf: User = await mongoCon.findUser(userstate.username);
+            let userTarget: User = await mongoCon.findUser(args[1]);
+            if (userSelf.admin != true) { return `@${userstate.username}, you don't have permission to use that!` };
+            if (userTarget == null) {
+                await mongoCon.insertUser(userTarget);
+            }
+            await mongoCon.subPoints(userTarget.username, parseInt(args[2]));
+            return `@${userstate.username} now has ${parseInt(args[2])} points`;
+        }
     }
 ]
