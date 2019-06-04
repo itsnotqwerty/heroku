@@ -43,7 +43,7 @@ export const commands = [
                 await mongoCon.insertUser(args[1]);
             }
             await mongoCon.addPoints(userTarget.username, parseInt(args[2]));
-            return `@${userstate.username} now has ${parseInt(args[2])} points`;
+            return `@${userstate.username} now has ${parseInt(args[2])} more points`;
         }
     },
     {
@@ -57,7 +57,7 @@ export const commands = [
                 await mongoCon.insertUser(args[1]);
             }
             await mongoCon.subPoints(userTarget.username, parseInt(args[2]));
-            return `@${userstate.username} now has ${parseInt(args[2])} points`;
+            return `@${userstate.username} now has ${parseInt(args[2])} less points`;
         }
     }
 ]
