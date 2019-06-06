@@ -1,5 +1,6 @@
 import { MongoController } from './db';
 import * as twitch from 'tmi.js';
+import * as discord from 'discord.js';
 import express from 'express';
 import * as v from './vars';
 import * as http from 'http';
@@ -21,9 +22,11 @@ var options = {
     },
     channels: [ "#qerwtr546", "kraslin", "ninjabunny9000", "cmgriffing", "#museun" ]
 }
-var client: twitch.Client = twitch.client(options);
 
-client.on('message', async (channel: string, userstate: twitch.ChatUserstate, message: string, self: boolean) => {
+var TwitchCli: twitch.Client = twitch.client(options);
+var DiscordCli: discord.Client = new discord.Client();
+
+TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate, message: string, self: boolean) => {
     if (self) { return };
     let user = String(userstate.username);
     let userData = await mongoCon.findUser(user);
@@ -34,15 +37,20 @@ client.on('message', async (channel: string, userstate: twitch.ChatUserstate, me
     if (!message.startsWith('::')) { return };
     for (let command of v.commands) {
         if (message.startsWith(command.trigger)) {
-            await client.say(channel, await command.response(userstate, v.parseMessage(message)));
+            await TwitchCli.say(channel, await command.response(userstate, v.parseMessage(message)));
             return;
         }
     }
 });
 
+DiscordCli.on('message', async (message: discord.Message) => {
+    console.log(message.content);
+});
+
 var init = async () => {
     await mongoCon.initTwitchDB();
-    await client.connect();
+    await TwitchCli.connect();
+    await DiscordCli.login("NTM1NTIzNzM3MTU2NTgzNDQ0.XPh4AA.pgS25ju26vM8YjosChz5faA5iMU");
 }
 
 setInterval(() => {
