@@ -4,6 +4,7 @@ import * as discord from 'discord.js';
 import express from 'express';
 import * as v from './vars';
 import * as http from 'http';
+import { CommandPacket } from './Entities/CommandPacket';
 
 const web: express.Express = express();
 const PORT = process.env.PORT || 5000;
@@ -29,11 +30,12 @@ var DiscordCli: discord.Client = new discord.Client();
 TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate, message: string, self: boolean) => {
     if (self) { return };
     let user = String(userstate.username);
-    v.process(message, user);
+    v.processUser(user);
     if (!message.startsWith('::')) { return };
+    let packet = await CommandPacket.init(message, user, "twitch");
     for (let command of v.commands) {
         if (message.startsWith(command.trigger)) {
-            await TwitchCli.say(channel, await command.response(user, v.parseMessage(message)));
+            await TwitchCli.say(channel, await command.response(packet));
             return;
         }
     }
@@ -41,11 +43,12 @@ TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate,
 
 DiscordCli.on('message', async (message: discord.Message) => {
     let user = String(message.author.id);
-    v.process(message.content, user);
+    v.processUser(user);
+    let packet = await CommandPacket.init(message.content, user, "discord");
     if (!message.content.startsWith('::')) { return };
     for (let command of v.commands) {
         if (message.content.startsWith(command.trigger)) {
-            await message.reply(await command.response(user, v.parseMessage(message.content)));
+            await message.reply(await command.response(packet));
             return;
         }
     }

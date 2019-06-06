@@ -1,4 +1,5 @@
 import {MongoClient, Db} from 'mongodb';
+import { User } from './Entities/User';
 const url = 'mongodb+srv://admin:cicada3301@cluster0-fjtom.gcp.mongodb.net/test?retryWrites=true';
 
 export class MongoController {
