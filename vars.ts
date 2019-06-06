@@ -15,6 +15,7 @@ export async function process(message: string, user: string) {
         await mongoCon.insertUser(user);
     }
     await mongoCon.addPoints(user, 1);
+    return true;
 }
 
 export const commands = [

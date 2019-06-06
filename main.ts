@@ -51,6 +51,10 @@ DiscordCli.on('message', async (message: discord.Message) => {
     }
 });
 
+DiscordCli.on('error', async (error: discord.DiscordAPIError) => {
+    console.log('Big error uwu');
+})
+
 var init = async () => {
     await mongoCon.initTwitchDB();
     await TwitchCli.connect();
