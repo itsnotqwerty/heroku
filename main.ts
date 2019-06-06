@@ -43,6 +43,7 @@ TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate,
 
 DiscordCli.on('message', async (message: discord.Message) => {
     let user = String(message.author.id);
+    console.log(user);
     v.processUser(user);
     let packet = await CommandPacket.init(message.content, user, "discord");
     if (!message.content.startsWith('::')) { return };

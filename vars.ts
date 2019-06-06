@@ -27,7 +27,7 @@ export const commands = [
                 case "discord":
                     return `you have ${packet.user.points} points`;
                 default:
-                    return `${packet.user.username} has ${packet.user.points} points`;
+                    return `${packet.user.username}, you have ${packet.user.points} points`;
             }
         }
     },
