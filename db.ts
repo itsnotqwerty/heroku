@@ -1,4 +1,5 @@
 import {MongoClient, Db} from 'mongodb';
+import * as v from './vars';
 const url = 'mongodb+srv://admin:cicada3301@cluster0-fjtom.gcp.mongodb.net/test?retryWrites=true';
 
 export class MongoController {
@@ -30,7 +31,7 @@ export class MongoController {
     }
 
     randomUser = async () => {
-        return await this.db.collection('users').findOne({});
+        return v.random(await this.db.collection('users').find({}).toArray());
     }
 
     allUsers = async () => {
