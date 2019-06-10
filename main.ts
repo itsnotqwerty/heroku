@@ -75,5 +75,7 @@ setInterval(() => {
 init();
 
 web.get('/', function(req, res) {
-    res.render('index');
+    res.render('index', {
+        'users': mongoCon.allUsers()
+    });
 })
