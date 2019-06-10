@@ -13,7 +13,7 @@ export const mongoCon = new MongoController();
 web.listen(PORT);
 
 web.set( "views", "./Views" );
-web.set( "view engine", "pug" );
+web.set( "view engine", "ejs" );
 
 var options = {
     connection: {
