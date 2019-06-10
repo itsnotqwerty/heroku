@@ -12,6 +12,9 @@ export const mongoCon = new MongoController();
 
 web.listen(PORT);
 
+web.set( "views", "./Views" );
+web.set( "view engine", "pug" );
+
 var options = {
     connection: {
         reconnect: true,
@@ -70,3 +73,7 @@ setInterval(() => {
 }, 600000);
 
 init();
+
+web.get('/', function(req, res) {
+    res.render('index');
+})
