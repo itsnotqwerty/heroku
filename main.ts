@@ -74,8 +74,8 @@ setInterval(() => {
 
 init();
 
-web.get('/', function(req, res) {
+web.use(async (req, res, next) => {
     res.render('index', {
-        'users': mongoCon.allUsers()
+        'user': await mongoCon.randomUser()
     });
 })

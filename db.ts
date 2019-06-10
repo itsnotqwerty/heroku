@@ -29,6 +29,10 @@ export class MongoController {
         });
     }
 
+    randomUser = async () => {
+        return await this.db.collection('users').findOne({});
+    }
+
     allUsers = async () => {
         return await this.db.collection('users').find({});
     }
