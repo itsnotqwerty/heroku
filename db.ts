@@ -33,7 +33,7 @@ export class MongoController {
     orderUsers = async () => {
         let unordered = await this.db.collection('users').find({}).toArray()
         return unordered.sort((a, b) => {
-            return a.points - b.points;
+            return b.points - a.points;
         });
     }
 
