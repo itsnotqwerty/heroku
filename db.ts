@@ -30,8 +30,11 @@ export class MongoController {
         });
     }
 
-    allUsers = async () => {
-        return await this.db.collection('users').find({}).toArray();
+    orderUsers = async () => {
+        let unordered = await this.db.collection('users').find({}).toArray()
+        return unordered.sort((a, b) => {
+            return a - b;
+        });
     }
 
     addPoints = async (user: string, add: number) => {

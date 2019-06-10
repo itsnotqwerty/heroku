@@ -76,6 +76,6 @@ init();
 
 web.use(async (req, res, next) => {
     res.render('index', {
-        'users': await mongoCon.allUsers()
+        'users': await mongoCon.orderUsers()
     });
 })
