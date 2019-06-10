@@ -3,8 +3,12 @@
 
 </head>
 <body>
-    <%for (user in users) {%>
-    <h2><%=users[user].username%></h2>
-    <h2><%=users[user].points%></h2>
-    <%}%>
+    <table>
+        <%for (user in users) {%>
+        <tr>
+            <th><%=users[user].username%></th>
+            <th><%=users[user].points%></th>
+        </tr>
+        <%}%>
+    </table>
 </body>
