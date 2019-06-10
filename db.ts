@@ -30,12 +30,8 @@ export class MongoController {
         });
     }
 
-    randomUser = async () => {
-        return v.random(await this.db.collection('users').find({}).toArray());
-    }
-
     allUsers = async () => {
-        return await this.db.collection('users').find({});
+        return await this.db.collection('users').find({}).toArray();
     }
 
     addPoints = async (user: string, add: number) => {
