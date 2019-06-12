@@ -1,5 +1,5 @@
-var W = windowWidth;
-var H = windowHeight;
+var W = window.innerWidth;
+var H = window.innerHeight;
 
 function setup() {
     createCanvas(W, H);
@@ -11,5 +11,5 @@ function draw() {
 }
 
 function windowResized() {
-    resizeCanvas(W, H);
+    resizeCanvas(W, H, false);
 }
