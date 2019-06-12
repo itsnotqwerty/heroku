@@ -14,6 +14,7 @@ web.listen(PORT);
 
 web.set( "views", "./Views" );
 web.set( "view engine", "ejs" );
+web.use('/public', express.static(__dirname + '/public'));
 
 var options = {
     connection: {
