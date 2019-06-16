@@ -1,6 +1,5 @@
 import { MongoController } from './db';
 import * as twitch from 'tmi.js';
-import * as discord from 'discord.js';
 import express from 'express';
 import * as v from './vars';
 import * as http from 'http';
@@ -25,11 +24,10 @@ var options = {
         username: "qbotv3",
         password: "oauth:l9vumzpgl7ok807gnuiyvs62kdmq9o"
     },
-    channels: [ "#qerwtr546", "kraslin", "ninjabunny9000", "cmgriffing", "#museun" ]
+    channels: [ "#qerwtr546" ]
 }
 
 var TwitchCli: twitch.Client = twitch.client(options);
-var DiscordCli: discord.Client = new discord.Client();
 
 TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate, message: string, self: boolean) => {
     if (self) { return };
@@ -45,28 +43,9 @@ TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate,
     }
 });
 
-DiscordCli.on('message', async (message: discord.Message) => {
-    let user = String(message.author.id);
-    console.log(user);
-    v.processUser(user);
-    let packet = await CommandPacket.init(message.content, user, "discord");
-    if (!message.content.startsWith('::')) { return };
-    for (let command of v.commands) {
-        if (message.content.startsWith(command.trigger)) {
-            await message.reply(await command.response(packet));
-            return;
-        }
-    }
-});
-
-DiscordCli.on('error', async (error: discord.DiscordAPIError) => {
-    console.log('Big error uwu');
-})
-
 var init = async () => {
-    await mongoCon.initTwitchDB();
+    await mongoCon.initDB();
     await TwitchCli.connect();
-    await DiscordCli.login("NTM1NTIzNzM3MTU2NTgzNDQ0.XPh4AA.pgS25ju26vM8YjosChz5faA5iMU");
 }
 
 setInterval(() => {

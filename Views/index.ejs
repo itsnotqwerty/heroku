@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
-    <script src="/js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
 <body style="margin: 0">
+    <table>
+        <tr>
+            <td>User</td>
+            <td>Points</td>
+        </tr>
+        <% for (let user of users) { %>
+            <tr>
+                <td>user.username</td>
+                <td>user.points</td>
+            </tr>
+        <% } %>
+    </table>
 </body>
