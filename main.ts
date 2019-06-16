@@ -36,7 +36,7 @@ TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate,
     let packet = await CommandPacket.init(message, user, "twitch");
     for (let scramble of v.scrambles) {
         if (message == scramble.trigger) {
-            v.scrambles.splice(v.scrambles.findIndex(s => s.trigger == message))
+            v.scrambles.splice(v.scrambles.findIndex(s => s.trigger == message), 1)
             await TwitchCli.say(channel, await scramble.response(packet));
             return;
         }
