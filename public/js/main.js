@@ -1,5 +1,5 @@
 const socket = io();
 
-io.on('update', (scrambles) => {
+socket.on('update', (scrambles) => {
     document.getElementById('scrambles').innerHTML = scrambles
-})
+});
