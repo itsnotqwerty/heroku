@@ -1,5 +1,5 @@
-import { mongoCon } from './main'
-import { CommandPacket } from './Entities/CommandPacket';
+import { mongoCon } from './main';
+import { Scramble } from './Entities/Scramble';
 
 export function random(a: any[]): any {
     return a[Math.floor(Math.random() * a.length)];
@@ -17,16 +17,16 @@ export async function processUser(user: string) {
     return true;
 }
 
-export const commands = [
-    {
-        'trigger': '::points',
-        'response': async (packet: CommandPacket) => {
-            switch (packet.platform) {
-                case "discord":
-                    return `you have ${packet.user.points} points`;
-                default:
-                    return `${packet.user.username}, you have ${packet.user.points} points`;
-            }
-        }
-    }
+export const scrambles: Scramble[] = [];
+
+const words: string[] = [
+    'unscrambled',
+    'jiving',
+    'scuba'
 ]
+
+setInterval(() => {
+    let unscrambled = random(words);
+    let scrambled = unscrambled.split('').sort(() => {return 0.5-Math.random()}).join('');
+    scrambles.push(new Scramble(scrambled, unscrambled));
+}, 5000);

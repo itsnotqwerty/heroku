@@ -35,9 +35,9 @@ TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate,
     v.processUser(user);
     if (!message.startsWith('::')) { return };
     let packet = await CommandPacket.init(message, user, "twitch");
-    for (let command of v.commands) {
-        if (message.startsWith(command.trigger)) {
-            await TwitchCli.say(channel, await command.response(packet));
+    for (let scramble of v.scrambles) {
+        if (message.startsWith(scramble.trigger)) {
+            await TwitchCli.say(channel, await scramble.response(packet));
             return;
         }
     }
@@ -56,6 +56,6 @@ init();
 
 web.use(async (req, res, next) => {
     res.render('index', {
-        'users': await mongoCon.orderUsers()
+        'scrambles': v.scrambles
     });
 })
