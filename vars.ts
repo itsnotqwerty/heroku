@@ -1,5 +1,6 @@
 import { mongoCon } from './main';
 import { Scramble } from './Entities/Scramble';
+import { words } from './Data/WordList'
 
 export function random(a: any[]): any {
     return a[Math.floor(Math.random() * a.length)];
@@ -18,12 +19,6 @@ export async function processUser(user: string) {
 }
 
 export const scrambles: Scramble[] = [];
-
-const words: string[] = [
-    'unscrambled',
-    'jiving',
-    'scuba'
-]
 
 setInterval(() => {
     if (scrambles.length >= 10) { return }; 
