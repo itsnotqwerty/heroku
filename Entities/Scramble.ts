@@ -1,5 +1,6 @@
 import { CommandPacket } from './CommandPacket';
 import { mongoCon } from '../main';
+
 export class Scramble {
     trigger: string;
     scrambled: string;

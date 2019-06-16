@@ -27,7 +27,10 @@ var options = {
     channels: [ "#qerwtr546" ]
 }
 
-var TwitchCli: twitch.Client = twitch.client(options);
+const TwitchCli: twitch.Client = twitch.client(options);
+
+const ioServer = new http.Server(web);
+const io = require('socket.io')(ioServer);
 
 TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate, message: string, self: boolean) => {
     if (self) { return };
@@ -37,6 +40,7 @@ TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate,
     for (let scramble of v.scrambles) {
         if (message == scramble.trigger) {
             v.scrambles.splice(v.scrambles.findIndex(s => s.trigger == message), 1)
+            io.emit('update', v.scrambles);
             await TwitchCli.say(channel, await scramble.response(packet));
             return;
         }
@@ -58,4 +62,4 @@ web.use(async (req, res, next) => {
     res.render('index', {
         'scrambles': v.scrambles
     });
-})
+});
