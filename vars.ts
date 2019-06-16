@@ -26,6 +26,7 @@ const words: string[] = [
 ]
 
 setInterval(() => {
+    if (scrambles.length >= 10) { return }; 
     let unscrambled = random(words);
     let scrambled = unscrambled.split('').sort(() => {return 0.5-Math.random()}).join('');
     scrambles.push(new Scramble(scrambled, unscrambled));

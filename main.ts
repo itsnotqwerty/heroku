@@ -33,10 +33,10 @@ TwitchCli.on('message', async (channel: string, userstate: twitch.ChatUserstate,
     if (self) { return };
     let user = String(userstate.username);
     v.processUser(user);
-    if (!message.startsWith('::')) { return };
     let packet = await CommandPacket.init(message, user, "twitch");
     for (let scramble of v.scrambles) {
-        if (message.startsWith(scramble.trigger)) {
+        if (message == scramble.trigger) {
+            v.scrambles.splice(v.scrambles.findIndex(s => scramble.trigger == message))
             await TwitchCli.say(channel, await scramble.response(packet));
             return;
         }
