@@ -6,7 +6,7 @@ const app = express();
 
 app.set('views', __dirname + '/Views');
 app.set('view engine', 'pug');
-app.use('/', express.static('Public'));
+app.use('/styles', express.static('Public/Styles'));
 
 app.use((req, res) => {
     return res.render('index', {
