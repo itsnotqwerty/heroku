@@ -1,5 +1,7 @@
 import express = require("express");
 import io = require("socket.io");
+import { Http2SecureServer } from "http2";
+import { get } from "http";
 
 const app = express();
 
@@ -14,3 +16,7 @@ app.use((req, res) => {
 });
 
 app.listen(process.env.PORT || 8080);
+
+setInterval(() => {
+    get('https://infinite-dusk-64948.herokuapp.com/')
+}, 300000);
