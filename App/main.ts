@@ -8,7 +8,9 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 
 app.use((req, res) => {
-    return res.render('index');
+    return res.render('index', {
+        url: req.url
+    });
 });
 
 app.listen(process.env.PORT || 8080);
