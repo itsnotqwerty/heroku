@@ -10,8 +10,12 @@ const mongo = new MongoCon();
 
 const app = express();
 
+app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/Views');
 app.set('view engine', 'pug');
+
+const https = new Server(app);
+const io = socketio(https);
 
 app.use('/styles', express.static(__dirname + '/Public/Styles'));
 app.use('/images', express.static(__dirname + '/Public/Images'));
@@ -22,9 +26,6 @@ app.use(async (req, res) => {
         title: "Placeholder Title!"
     });
 });
-
-const https = new Server(app);
-const io = socketio(https);
 
 io.on('connect', (socket: any) => {
     socket.on('newUser', async (login: LoginPacket) => {
