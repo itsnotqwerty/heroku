@@ -13,10 +13,9 @@ app.set('view engine', 'pug');
 
 app.use('/styles', express.static(__dirname + '/Public/Styles'));
 app.use('/images', express.static(__dirname + '/Public/Images'));
-app.use('/videos', express.static(__dirname + '/Public/Videos'));
+app.use('/scripts', express.static(__dirname + '/Public/Scripts'));
 
 app.use(async (req, res) => {
-    await addUser('admin', 'admin');
     return res.render('index', {
         title: "Placeholder Title!"
     });
@@ -24,6 +23,8 @@ app.use(async (req, res) => {
 
 app.listen(process.env.PORT || 8080);
 
+
+
 setInterval(() => {
-    get('https://projectseveryweek.com/')
+    get('http://projectseveryweek.com/')
 }, 300000);
