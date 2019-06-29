@@ -28,8 +28,9 @@ app.use(async (req, res) => {
 });
 
 io.on('connect', (socket: any) => {
-    socket.on('newUser', async (login: LoginPacket) => {
-        await addUser(login);
+    socket.on('newUser', (login: LoginPacket) => {
+        addUser(login);
+        console.log('NEW USER RECEIVED!');
     })
 })
 
