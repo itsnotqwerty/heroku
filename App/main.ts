@@ -9,8 +9,6 @@ import { LoginPacket } from './Entities/entities';
 const mongo = new MongoCon();
 
 const app = express();
-const https = new Server(app);
-const io = socketio(https);
 
 app.set('views', __dirname + '/Views');
 app.set('view engine', 'pug');
@@ -25,13 +23,16 @@ app.use(async (req, res) => {
     });
 });
 
-https.listen(process.env.PORT || 8080);
+const https = new Server(app);
+const io = socketio(https);
 
 io.on('connect', (socket: any) => {
     socket.on('newUser', async (login: LoginPacket) => {
         await addUser(login);
     })
 })
+
+https.listen(process.env.PORT || 8080);
 
 setInterval(() => {
     get('http://projectseveryweek.com/')
