@@ -1,4 +1,4 @@
-const socket = io("http://www.projectseveryweek.com");
+const socket = io("https://www.projectseveryweek.com");
 
 function signup() {
     socket.emit('newUser', {
