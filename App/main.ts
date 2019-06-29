@@ -25,7 +25,6 @@ app.use(async (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || 8080);
 https.listen(process.env.PORT || 8080);
 
 io.on('connect', (socket: any) => {
