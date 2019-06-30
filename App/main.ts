@@ -2,7 +2,7 @@ import express = require("express");
 import socketio = require("socket.io");
 import { addUser } from "./user";
 import { LoginPacket } from './Entities/entities';
-import { get, createServer } from "https";
+import { get, createServer } from "http";
 
 const app = express();
 
@@ -34,5 +34,5 @@ io.on('connect', (socket: any) => {
 server.listen(process.env.PORT || 8080);
 
 setInterval(() => {
-    get('https://projectseveryweek.com/');
+    get('http://projectseveryweek.com/');
 }, 300000);
