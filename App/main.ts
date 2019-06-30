@@ -21,7 +21,7 @@ app.use('/styles', express.static(__dirname + '/Public/Styles'));
 app.use('/images', express.static(__dirname + '/Public/Images'));
 app.use('/scripts', express.static(__dirname + '/Public/Scripts'));
 
-app.use('/', async (req, res) => {
+app.get('/', async (req, res) => {
     return res.render('index', {
         title: "Placeholder Title!"
     });
