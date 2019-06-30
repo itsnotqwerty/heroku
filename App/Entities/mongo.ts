@@ -19,4 +19,12 @@ export class MongoCon {
             cli.close();
         });
     }
+
+    async getNode() {
+        let node: Node = await MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true}).then(async (cli: MongoClient) => {
+            node = await cli.db(this.db).collection('json').findOne({}) as Node;
+            return node
+        });
+        return node;
+    }
 }

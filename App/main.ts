@@ -16,7 +16,8 @@ app.use('/scripts', express.static(__dirname + '/Public/Scripts'));
 
 app.use('/', async (req, res) => {
     return res.render('index', {
-        title: "The JSON File"
+        title: "The JSON File",
+        json: await mongo.getNode()
     });
 });
 
