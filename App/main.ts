@@ -19,8 +19,8 @@ app.use(async (req, res) => {
     });
 });
 
-const server = createServer(app);
-const io = socketio(server);
+// const server = createServer(app);
+const io = socketio(process.env.PORT || 8080);
 
 io.on('connection', (socket: any) => {
     console.log('Connected!');
@@ -34,5 +34,5 @@ io.on('connection', (socket: any) => {
 app.listen(process.env.PORT || 8080);
 
 setInterval(() => {
-    get('http://projectseveryweek.com/');
+    get('https://projectseveryweek.com/');
 }, 300000);
