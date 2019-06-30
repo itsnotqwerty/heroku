@@ -25,9 +25,17 @@ const io = socketio(server);
 io.on('connect', (socket: any) => {
     console.log('Connected!');
 
-    socket.on('newUser', async (login: LoginPacket) => {
-        await addUser(login);
-        console.log('NEW USER RECEIVED!');
+    socket.on('newUser', (login: LoginPacket) => {
+        addUser(login).then((response: any) => {
+            switch(response.data) {
+                case 'USER EXISTS':
+                    socket.emit('userExistsError');
+                case 'SUCCESS':
+                    socket.emit('signupSuccess');
+                default:
+                    socket.emit('unknownError');
+            }
+        });
     })
 })
 

@@ -17,9 +17,15 @@ export class MongoCon {
     }
 
     async insertUser(entity: Document<PrivateUser>) {
-        MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true}).then((cli: MongoClient) => {
-            cli.db(this.db).collection('users').insertOne(entity);
-            cli.close();
+        MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true}).then(async (cli: MongoClient) => {
+            let collection = cli.db(this.db).collection('users');
+            if (await collection.findOne({username: entity.entries.username}) != null) {
+                return {
+                    data: "USER EXISTS"
+                }
+            }
+            await collection.insertOne(entity.entries);
+            return { data: "SUCCESS" }
         });
     }
 
