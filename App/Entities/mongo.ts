@@ -12,15 +12,17 @@ export class MongoCon {
     }
 
     async insertReview(entity: Document<Review>) {
-        await this.mongoCli.connect();
-        await this.mongoCli.db(this.db).collection('reviews').insertOne(entity);
-        await this.mongoCli.close();
+        this.mongoCli.connect().then((cli: MongoClient) => {
+            cli.db(this.db).collection('reviews').insertOne(entity);
+            cli.close();
+        });
     }
 
     async insertUser(entity: Document<PrivateUser>) {
-        await this.mongoCli.connect();
-        await this.mongoCli.db(this.db).collection('users').insertOne(entity);
-        await this.mongoCli.close();
+        this.mongoCli.connect().then((cli: MongoClient) => {
+            cli.db(this.db).collection('users').insertOne(entity);
+            cli.close();
+        });
     }
 
     async getPrivateUser(identifier: LoginPacket) {

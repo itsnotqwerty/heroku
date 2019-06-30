@@ -6,7 +6,7 @@ socket.on('connection', () => {
 
 function signup() {
     socket.emit('newUser', {
-        username: document.getElementById('user').innerText,
-        password: document.getElementById('pass').innerText
+        username: document.getElementById('user').value,
+        password: document.getElementById('pass').value
     })
 }
