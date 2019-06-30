@@ -7,7 +7,7 @@ export class MongoCon {
     private db: string;
 
     constructor() {
-        this.mongoCli = new MongoClient(process.env.MONGO_URI!);
+        this.mongoCli = new MongoClient(process.env.MONGO_URI!, {useNewUrlParser: true});
         this.db = process.env.MONGO_DBNAME!;
     }
 

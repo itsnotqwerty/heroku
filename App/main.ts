@@ -25,8 +25,8 @@ const io = socketio(server);
 io.on('connect', (socket: any) => {
     console.log('Connected!');
 
-    socket.on('newUser', (login: LoginPacket) => {
-        addUser(login);
+    socket.on('newUser', async (login: LoginPacket) => {
+        await addUser(login);
         console.log('NEW USER RECEIVED!');
     })
 })
