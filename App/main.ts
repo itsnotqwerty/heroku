@@ -1,8 +1,7 @@
 import express = require("express");
 import socketio = require("socket.io");
-import { addUser } from "./user";
-import { LoginPacket } from './Entities/entities';
 import { get, createServer } from "http";
+import { Node } from './Entities/entities';
 
 const app = express();
 
@@ -15,7 +14,7 @@ app.use('/scripts', express.static(__dirname + '/Public/Scripts'));
 
 app.use('/', async (req, res) => {
     return res.render('index', {
-        title: "Placeholder Title!"
+        title: "The JSON File"
     });
 });
 
@@ -25,8 +24,8 @@ const io = socketio(server);
 io.on('connect', (socket: SocketIO.Socket) => {
     console.log('Connected!');
 
-    socket.on('newUser', (login: LoginPacket) => {
-        addUser(login, socket);
+    socket.on('nodeUpdate', (packet: Node) => {
+        io.sockets.emit('nodeUpdate', packet);
     })
 })
 
