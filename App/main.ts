@@ -36,7 +36,7 @@ io.on('connect', (socket: any) => {
     })
 })
 
-app.listen(process.env.PORT || 8080);
+https.listen(process.env.PORT || 8080);
 
 setInterval(() => {
     get('http://projectseveryweek.com/')
