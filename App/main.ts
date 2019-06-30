@@ -1,21 +1,15 @@
 import express = require("express");
-import socketio = require("socket.io");
-import { get } from "http";
-import { MongoCon } from "./Entities/mongo";
+import * as WebSocket from 'ws';
 import { addUser } from "./user";
-import { Server } from "https";
 import { LoginPacket } from './Entities/entities';
-
-const mongo = new MongoCon();
+import { createServer, get } from "https";
+import { SocketEvent } from "./Entities/sockets";
 
 const app = express();
 
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/Views');
 app.set('view engine', 'pug');
-
-const https = new Server(app);
-const io = socketio(https);
 
 app.use('/styles', express.static(__dirname + '/Public/Styles'));
 app.use('/images', express.static(__dirname + '/Public/Images'));
@@ -27,17 +21,22 @@ app.use(async (req, res) => {
     });
 });
 
-io.on('connect', (socket: any) => {
-    console.log('Connected!');
+app.listen(process.env.PORT || 8080);
 
-    socket.on('newUser', (login: LoginPacket) => {
-        addUser(login);
-        console.log('NEW USER RECEIVED!');
+const server = createServer(app);
+const wss = new WebSocket.Server({server});
+
+wss.on('connection', (ws: WebSocket) => {
+    ws.on('message', (event: SocketEvent) => {
+        switch(event.type) {
+            case 'newUser':
+                addUser(event.data as LoginPacket);
+            default:
+                console.log('Invalid event!');
+        }
     })
 })
 
-app.listen(process.env.PORT || 8080);
-
 setInterval(() => {
-    get('http://projectseveryweek.com/')
+    get('https://projectseveryweek.com/')
 }, 300000);
