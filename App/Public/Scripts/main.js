@@ -1,11 +1,8 @@
-const socket = new WebSocket("wss://projectseveryweek.com");
+const socket = io.connect("https://projectseveryweek.com", {secure: true});
 
 function signup() {
-    socket.send({
-        type: 'newUser',
-        data: {
-            username: document.getElementById('user').innerText,
-            password: document.getElementById('pass').innerText
-        }
+    socket.emit('newUser', {
+        username: document.getElementById('user').innerText,
+        password: document.getElementById('pass').innerText
     })
 }
