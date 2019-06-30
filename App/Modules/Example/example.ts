@@ -8,7 +8,7 @@ const app = express();
 
 export class ExampleModule {
     load() {
-        app.set('views', './Views');
+        app.set('views', __dirname + '/Views');
         app.set('view engine', 'pug');
         app.use((req, res) => {
             return res.render('index');
