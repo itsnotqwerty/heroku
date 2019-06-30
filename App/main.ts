@@ -14,9 +14,6 @@ app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/Views');
 app.set('view engine', 'pug');
 
-const https = new Server(app);
-const io = socketio(https);
-
 app.use('/styles', express.static(__dirname + '/Public/Styles'));
 app.use('/images', express.static(__dirname + '/Public/Images'));
 app.use('/scripts', express.static(__dirname + '/Public/Scripts'));
@@ -27,6 +24,8 @@ app.get('/', async (req, res) => {
     });
 });
 
+const io = socketio(app);
+
 io.on('connect', (socket: any) => {
     console.log('Connected!');
 
@@ -36,7 +35,7 @@ io.on('connect', (socket: any) => {
     })
 })
 
-https.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 8080);
 
 setInterval(() => {
     get('http://projectseveryweek.com/')
