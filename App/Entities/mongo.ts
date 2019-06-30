@@ -1,6 +1,5 @@
 import { MongoClient } from "mongodb";
 import { Node } from "./entities";
-import { Socket } from "socket.io";
 
 
 export class MongoCon {
@@ -11,20 +10,18 @@ export class MongoCon {
     }
 
     async updateNode(node: Node) {
-        MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true}).then(async (cli: MongoClient) => {
-            let cursor = await cli.db(this.db).collection('json').findOne({}) as Node;
-            console.log(JSON.stringify(cursor));
-            await cli.db(this.db).collection('json').deleteOne({});
-            await cli.db(this.db).collection('json').insertOne(cursor);
-            cli.close();
-        });
+        let cli = await MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true})
+        let cursor = await cli.db(this.db).collection('json').findOne({}) as Node;
+        console.log(JSON.stringify(cursor));
+        await cli.db(this.db).collection('json').deleteOne({});
+        await cli.db(this.db).collection('json').insertOne(node);
+        cli.close();
     }
 
-    async getNode() {
-        let node: Node = await MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true}).then(async (cli: MongoClient) => {
-            node = await cli.db(this.db).collection('json').findOne({}) as Node;
-            return node
-        });
-        return node;
+    async getNode(): Promise<Node> {
+        let cli = await MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true})
+        let cursor = await cli.db(this.db).collection('json').findOne({}) as Node;
+        return cursor;
+        cli.close();
     }
 }
