@@ -19,10 +19,10 @@ app.use(async (req, res) => {
     });
 });
 
-// const server = createServer(app);
-const io = socketio(process.env.PORT || 8080);
+const server = createServer(app);
+const io = socketio(server);
 
-io.on('connection', (socket: any) => {
+io.on('connect', (socket: any) => {
     console.log('Connected!');
 
     socket.on('newUser', (login: LoginPacket) => {
