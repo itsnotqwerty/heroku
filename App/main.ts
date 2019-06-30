@@ -1,16 +1,11 @@
 import express = require("express");
 import socketio = require("socket.io");
-import { get } from "http";
-import { MongoCon } from "./Entities/mongo";
 import { addUser } from "./user";
-import { Server } from "https";
 import { LoginPacket } from './Entities/entities';
-
-const mongo = new MongoCon();
+import { createServer, get } from "https";
 
 const app = express();
 
-app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/Views');
 app.set('view engine', 'pug');
 
@@ -24,7 +19,8 @@ app.get('/', async (req, res) => {
     });
 });
 
-const io = socketio(app);
+const server = createServer(app);
+const io = socketio(server);
 
 io.on('connect', (socket: any) => {
     console.log('Connected!');
@@ -33,10 +29,10 @@ io.on('connect', (socket: any) => {
         addUser(login);
         console.log('NEW USER RECEIVED!');
     })
-})
+});
 
-app.listen(process.env.PORT || 8080);
+server.listen(process.env.PORT || 8080);
 
 setInterval(() => {
-    get('http://projectseveryweek.com/')
+    get('https://projectseveryweek.com/')
 }, 300000);
