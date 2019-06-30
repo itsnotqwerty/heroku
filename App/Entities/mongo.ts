@@ -22,6 +22,7 @@ export class MongoCon {
             let collection = cli.db(this.db).collection('users');
             if (await collection.findOne({username: entity.entries.username}) != null) {
                 socket.emit('userExistsError');
+                return
             }
             await collection.insertOne(entity.entries);
             socket.emit('signupSuccess');
