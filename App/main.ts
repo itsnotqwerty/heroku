@@ -22,20 +22,11 @@ app.use('/', async (req, res) => {
 const server = createServer(app);
 const io = socketio(server);
 
-io.on('connect', (socket: any) => {
+io.on('connect', (socket: SocketIO.Socket) => {
     console.log('Connected!');
 
     socket.on('newUser', (login: LoginPacket) => {
-        addUser(login).then((response: any) => {
-            switch(response.data) {
-                case 'USER EXISTS':
-                    socket.emit('userExistsError');
-                case 'SUCCESS':
-                    socket.emit('signupSuccess');
-                default:
-                    socket.emit('unknownError');
-            }
-        });
+        addUser(login, socket);
     })
 })
 
