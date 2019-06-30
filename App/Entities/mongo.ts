@@ -13,10 +13,9 @@ export class MongoCon {
     async updateNode(node: Node) {
         MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true}).then(async (cli: MongoClient) => {
             let cursor = await cli.db(this.db).collection('json').findOne({}) as Node;
-            cursor.children.forEach((child: Node) => {
-                console.log(child);
-            })
-            cli.db(this.db).collection('json').insertOne(cursor);
+            console.log(JSON.stringify(cursor));
+            await cli.db(this.db).collection('json').deleteOne({});
+            await cli.db(this.db).collection('json').insertOne(cursor);
             cli.close();
         });
     }

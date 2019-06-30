@@ -2,8 +2,10 @@ import express = require("express");
 import socketio = require("socket.io");
 import { get, createServer } from "http";
 import { Node } from './Entities/entities';
+import { MongoCon } from './Entities/mongo';
 
 const app = express();
+const mongo = new MongoCon();
 
 app.set('views', __dirname + '/Views');
 app.set('view engine', 'pug');
@@ -26,7 +28,8 @@ io.on('connect', (socket: SocketIO.Socket) => {
 
     socket.on('nodeUpdate', (packet: Node) => {
         io.sockets.emit('nodeUpdate', packet);
-    })
+        mongo.updateNode(packet);
+    });
 })
 
 server.listen(process.env.PORT || 8080);
