@@ -21,7 +21,7 @@ export class MongoCon {
     async getNode(): Promise<Node> {
         let cli = await MongoClient.connect(process.env.MONGO_URI!, {useNewUrlParser: true})
         let cursor = await cli.db(this.db).collection('json').findOne({}) as Node;
-        return cursor;
         cli.close();
+        return cursor;
     }
 }
