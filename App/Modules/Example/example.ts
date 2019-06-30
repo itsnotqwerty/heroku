@@ -6,7 +6,7 @@ import * as core from "express-serve-static-core";
 
 export class ExampleModule {
     load(app: core.Express) {
-        app.set('views', './Views');
+        app.set('views', '/Example/Views');
         app.set('view engine', 'pug');
         app.use((req, res) => {
             return res.render('index');
