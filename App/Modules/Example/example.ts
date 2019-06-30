@@ -13,5 +13,6 @@ export class ExampleModule {
         app.use((req, res) => {
             return res.render('index');
         })
+        app.listen(process.env.PORT || 8080);
     }
 }
