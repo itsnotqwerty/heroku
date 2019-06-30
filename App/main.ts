@@ -22,7 +22,7 @@ app.use(async (req, res) => {
 const server = createServer(app);
 const io = socketio(server);
 
-io.on('connect', (socket: any) => {
+io.on('connection', (socket: any) => {
     console.log('Connected!');
 
     socket.on('newUser', (login: LoginPacket) => {
